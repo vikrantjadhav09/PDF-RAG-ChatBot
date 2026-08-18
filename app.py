@@ -24,7 +24,13 @@ load_dotenv()
 GROQ_API_KEY = os.getenv("GROQ_API_KEY")
 
 if not GROQ_API_KEY:
-    st.error("❌ GROQ_API_KEY is not found in .env file.")
+    try:
+        GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
+    except Exception:
+        pass
+
+if not GROQ_API_KEY:
+    st.error("❌ GROQ_API_KEY is not configured.")
     st.stop()
 
 
