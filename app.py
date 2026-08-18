@@ -93,12 +93,20 @@ if uploaded_file:
     )
 
     chunks = text_splitter.split_documents(
-        documents
-    )
+    documents
+        )
 
     st.write(
-        f"🧩 Chunks created: {len(chunks)}"
+    f"🧩 Chunks created: {len(chunks)}"
     )
+
+    if not chunks:
+        st.error(
+        "❌ No readable text was found in this PDF. "
+        "This may be a scanned/image-based PDF. "
+        "Please upload a PDF containing selectable text."
+        )
+        st.stop()
 
 
     # ========================================================
